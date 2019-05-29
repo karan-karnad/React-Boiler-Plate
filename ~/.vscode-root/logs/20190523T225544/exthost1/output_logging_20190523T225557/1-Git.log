@@ -1,0 +1,306 @@
+Looking for git in: git
+Using git 2.7.4 from git
+> git rev-parse --show-toplevel
+> git config --get commit.template
+Open repository: /home/karan/myApps/meeting-room
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name master@{u}
+fatal: no upstream configured for branch 'master'
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git check-ignore -z --stdin
+> git check-ignore -z --stdin
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name master@{u}
+fatal: no upstream configured for branch 'master'
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :src/App.js
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name master@{u}
+fatal: no upstream configured for branch 'master'
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :src/index.js
+> git show :src/App.js
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name master@{u}
+fatal: no upstream configured for branch 'master'
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name master@{u}
+fatal: no upstream configured for branch 'master'
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name master@{u}
+fatal: no upstream configured for branch 'master'
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name master@{u}
+fatal: no upstream configured for branch 'master'
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :src/index.js
+> git show :src/App.js
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name master@{u}
+fatal: no upstream configured for branch 'master'
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name master@{u}
+fatal: no upstream configured for branch 'master'
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :src/components/Button.js
+> git ls-files --stage -- src/components/
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name master@{u}
+fatal: no upstream configured for branch 'master'
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :src/components/InputBox.js
+> git ls-files --stage -- src/components/
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name master@{u}
+fatal: no upstream configured for branch 'master'
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :src/components/Button.js
+> git ls-files --stage -- src/components/
+> git show :src/components/InputBox.js
+> git ls-files --stage -- src/components/
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name master@{u}
+fatal: no upstream configured for branch 'master'
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name master@{u}
+fatal: no upstream configured for branch 'master'
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name master@{u}
+fatal: no upstream configured for branch 'master'
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name master@{u}
+fatal: no upstream configured for branch 'master'
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name master@{u}
+fatal: no upstream configured for branch 'master'
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :src/components/Button/index.js
+> git ls-files --stage -- src/components/Button/
+> git check-ignore -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name master@{u}
+fatal: no upstream configured for branch 'master'
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/components/InputBox/index.js
+> git ls-files --stage -- src/components/InputBox/
+> git check-ignore -z --stdin
+> git show :src/components/RoomCard/index.js
+> git check-ignore -z --stdin
+> git ls-files --stage -- src/components/RoomCard/
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/components/Button/index.js
+> git ls-files --stage -- src/components/Button/
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/components/RoomCard/index.js
+> git ls-files --stage -- src/components/RoomCard/
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/components/RoomCard/index.js
+> git ls-files --stage -- src/components/RoomCard/
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/components/Button/index.js
+> git ls-files --stage -- src/components/Button/
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/modules/Meeting/duc.js
+> git check-ignore -z --stdin
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/modules/Meeting/duc.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git check-ignore -z --stdin
+> git show :package.json
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git check-ignore -z --stdin
+> git show :public/index.html
+> git show :~/.vscode-root/CachedExtensions/builtin
+> git show :package.json
+> git show :package-lock.json
+> git show :package-lock.json
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/modules/Meeting/duc.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/modules/Meeting/duc.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/modules/Meeting/duc.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git check-ignore -z --stdin
+> git show :src/store/reducer.js
+> git ls-files --stage -- src/store/
+> git check-ignore -z --stdin
+> git show :src/App.js
+> git check-ignore -z --stdin
+> git show :src/store/Reducer.js
+> git ls-files --stage -- src/store/
+> git show :src/App.js
+> git show :src/store/Reducer.js
+> git ls-files --stage -- src/store/
+> git show :src/modules/Meeting/duc.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/store/Reducer.js
+> git ls-files --stage -- src/store/
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/App.js
+> git show :src/store/Reducer.js
+> git ls-files --stage -- src/store/
+> git show :src/modules/Meeting/duc.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/App.js
+> git show :src/modules/Meeting/duc.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/store/Reducer.js
+> git ls-files --stage -- src/store/
+> git show :src/modules/Meeting/duc.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/store/Reducer.js
+> git ls-files --stage -- src/store/
+> git show :src/App.js
+> git show :src/store/Reducer.js
+> git ls-files --stage -- src/store/
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/App.js
+> git show :src/modules/Meeting/duc.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/modules/Meeting/duc.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/modules/Meeting/duc.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/store/Reducer.js
+> git ls-files --stage -- src/store/
+> git show :src/modules/Meeting/duc.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/store/Reducer.js
+> git ls-files --stage -- src/store/
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/App.js
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/modules/Meeting/duc.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/App.js
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/modules/Meeting/duc.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/modules/Meeting/duc.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/store/Reducer.js
+> git ls-files --stage -- src/store/
+> git show :src/modules/Meeting/duc.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/modules/Meeting/duc.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/modules/Meeting/duc.js
+> git ls-files --stage -- src/modules/Meeting/
+> git show :src/modules/Meeting/index.js
+> git ls-files --stage -- src/modules/Meeting/

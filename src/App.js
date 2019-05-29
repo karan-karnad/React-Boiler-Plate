@@ -1,24 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Meeting from './modules/Meeting/index'
+import Reducer from './store/Reducer';
+import { createRenderer } from 'fela'
+import { Provider as FelaProvider } from 'react-fela';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 
+
+const renderer = createRenderer()
+
+
+const initialState = {}
+const store = createStore(Reducer,initialState)
+
+const styles = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-around',
+}
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" style={styles}>
+    <Provider store={store}>
+    <FelaProvider renderer={renderer}>  
+      <Meeting/>
+    </FelaProvider>
+    </Provider>
     </div>
   );
 }

@@ -1,0 +1,202 @@
+file:///home/karan/Downloads/intuit-test-master/src/container/app/index.js
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { AppDuc } from './duc';
+import { createStructuredSelector } from 'reselect';
+
+import { AppWrapper, Title, List, TravelOptions, Result } from './__style';
+
+import { getData } from '../../utils';
+
+import DropDown from '../../components/DropDown';
+
+async function getToken() {
+    const data = await fetch('https://craft-demo-intuit.herokuapp.com/token', {
+        method: 'post',
+        headers: { Accept: 'application/json' },
+    })
+        .then(response => {
+            if (response.status !== 200) {
+                console.log(
+                    'Looks like there was a problem. Status Code: ' +
+                        response.status
+                );
+            }
+            return response.json();
+        })
+        .catch(function(err) {
+            console.log(new Error('Fetch Error :', err));
+        });
+    console.log(data);
+    return data;
+}
+
+@connect(
+    createStructuredSelector({
+        root: AppDuc.selectors.root,
+        travelTime: AppDuc.selectors.travelTime,
+    }),
+    dispatch => ({
+        filterByGender: gender =>
+            dispatch(AppDuc.creators.filterByGender(gender)),
+        updateState: data => dispatch(AppDuc.creators.updateState(data)),
+        handleSelectedCity: city =>
+            dispatch(AppDuc.creators.updateSeletedCity(city)),
+        setVehicles: (vehicle, index) =>
+            dispatch(AppDuc.creators.updateSeletedVehicle(vehicle, index)),
+        setDestination: (city, vehicle, index) =>
+            dispatch(AppDuc.creators.updateDestination(city, vehicle, index)),
+    })
+)
+class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            cities: [],
+            vehicles: [],
+            success: false,
+        };
+    }
+    componentDidMount() {
+        getData().then(response => {
+            this.props.updateState(response);
+        });
+    }
+
+    handleCity = city => {
+        this.props.handleSelectedCity(city);
+    };
+
+    makeAPICall = (cities, vehicles) =>
+        new Promise(function(resolve, reject) {
+            getToken().then(response => {
+                const opts = {
+                    token: response.token,
+                    city_names: cities,
+                    transportvehicle_names: vehicles,
+                };
+                // Find Call
+                fetch('https://craft-demo-intuit.herokuapp.com/find', {
+                    method: 'post',
+                    headers: { Accept: 'application/json' },
+                    body: JSON.stringify(opts),
+                })
+                    .then(res => {
+                        if (res.status !== 200 || res.status === 400) {
+                            res = res.json();
+                            new Error('Looks like there was a problem');
+                        }
+                        res = res.json();
+                        // if (!res.status) {
+                        //     reject('Failed');
+                        // }
+                        resolve(res);
+                    })
+                    .catch(function(err) {
+                        console.log(err);
+                    });
+            });
+        });
+
+    findAJob = () => {
+        this.makeAPICall(this.state.cities, this.state.vehicles)
+            .then(response => {
+                this.setState({
+                    success: true,
+                    jobIn: response.city_name,
+                });
+            })
+            .catch(response => alert('Job Not Found'));
+    };
+
+    handleSetDestination = (city, vehicle, index) => {
+        const { cities, vehicles } = this.state;
+        const newcities = cities.concat([city]);
+        const newvehicles = vehicles.concat([vehicle]);
+        this.setState({
+            cities: newcities,
+            vehicles: newvehicles,
+        });
+        this.props.setDestination(city, vehicle, index);
+    };
+
+    render() {
+        const {
+            root: { city = false, vehicles = false },
+            handleSelectedCity,
+            setVehicles,
+            travelTime,
+        } = this.props;
+        return (
+            <AppWrapper>
+                <Title>Find a Job</Title>
+                {(!city || !vehicles) && (
+                    <div
+                        style={{
+                            display: 'flex',
+                            'justify-content': 'center',
+                            'font-size': '35px',
+                        }}
+                    >
+                        Loading.....
+                    </div>
+                )}
+                {city &&
+                    vehicles && (
+                        <div>
+                            <List>
+                                {[
+                                    'Destination 1',
+                                    'Destination 2',
+                                    'Destination 3',
+                                    'Destination 4',
+                                ].map((label, index) => (
+                                    <TravelOptions key={label}>
+                                        <div>{label}</div>
+                                        <DropDown
+                                            cities={city}
+                                            index={index}
+                                            vehicles={vehicles}
+                                            handleSelectedCity={
+                                                handleSelectedCity
+                                            }
+                                            setVehicles={setVehicles}
+                                            setDestination={
+                                                this.handleSetDestination
+                                            }
+                                        />
+                                    </TravelOptions>
+                                ))}
+                            </List>
+                            <Result>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        'justify-content': 'center',
+                                        'font-size': '20px',
+                                    }}
+                                >{`Time Spent on Travel: ${travelTime} Hrs`}</div>
+                                <div>
+                                    <button
+                                        type="primary"
+                                        onClick={() => this.findAJob()}
+                                    >
+                                        Find A Job
+                                    </button>
+                                </div>
+                                {this.state.success && (
+                                    <div>
+                                        {`Congrats job found in ${
+                                            this.state.jobIn
+                                        } and time ${travelTime} Hrs`}
+                                    </div>
+                                )}
+                            </Result>
+                        </div>
+                    )}
+            </AppWrapper>
+        );
+    }
+}
+
+export default App;

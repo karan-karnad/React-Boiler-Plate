@@ -1,0 +1,96 @@
+file:///home/karan/Downloads/intuit-test-master/src/container/app/duc.js
+// App Container Duc
+
+import Duck from 'extensible-duck';
+import { setIn, getIn, merge } from 'timm';
+
+import findIndex from 'lodash/findIndex';
+import 'babel-polyfill';
+
+export const AppDuc = new Duck({
+    namespace: 'app-duc',       
+    store: 'app',
+    types: [
+        'UPDATE_STATE',
+        'UPDATE_SELECTED_CITY',
+        'UPDATE_SELECTED_VEHICLE',
+        'UPDATE_DESTINATION',
+    ],
+    initialState: { time: 0, destination: {} },
+    reducer: (state, action, duck) => {
+        switch (action.type) {
+            case duck.types.UPDATE_STATE: {
+                const { payload } = action;
+                const newState = merge(state, { ...payload });
+                return newState;
+            }
+            case duck.types.UPDATE_SELECTED_CITY: {
+                const { payload: city } = action;
+                let cities = getIn(state, ['city']);
+                const index = findIndex(cities, { name: city });
+                const { status } =
+                    getIn(cities, [index, 'isSelected']) || false;
+                cities = setIn(cities, [index, 'isSelected'], !status);
+                return merge(state, { city: cities });
+            }
+            case duck.types.UPDATE_SELECTED_VEHICLE: {
+                const {
+                    payload: { vehicle, destIndex },
+                } = action;
+                let vehicles = getIn(state, ['vehicles']);
+                const vIndex = findIndex(vehicles, { name: vehicle });
+                const { total_no: count, speed } = getIn(vehicles, [vIndex]);
+                vehicles = setIn(vehicles, [vIndex, 'total_no'], count - 1);
+
+                //City
+                const { city } = getIn(state, [
+                    'destination',
+                    destIndex,
+                    'values',
+                ]);
+                let cities = getIn(state, ['city']);
+                const cIndex = findIndex(cities, { name: city });
+                const { distance } = getIn(cities, [cIndex]) || false;
+
+                const travelTime = distance / speed;
+                let prevTime = getIn(state, ['time']);
+                const totalTime = prevTime + travelTime;
+                // const newTime = setIn(state, ['time'], totalTime);
+
+                return merge(setIn(state, ['time'], totalTime), { vehicles });
+            }
+            case duck.types.UPDATE_DESTINATION: {
+                const { city, vehicle, index } = action.payload;
+                let destination = getIn(state, ['destination']);
+                destination = setIn(destination, [index], {
+                    values: { vehicle, city },
+                });
+                return merge(state, { destination });
+            }
+            default:
+                return state;
+        }
+    },
+    selectors: {
+        root: state => state && state.app,
+        travelTime: state => state && state.app.time,
+    },
+    creators: duck => ({
+        updateState: payload => ({
+            type: duck.types.UPDATE_STATE,
+            payload,
+        }),
+        updateSeletedCity: city => ({
+            type: duck.types.UPDATE_SELECTED_CITY,
+            payload: city,
+        }),
+        updateSeletedVehicle: (vehicle, index) => ({
+            type: duck.types.UPDATE_SELECTED_VEHICLE,
+            payload: { vehicle, destIndex: index },
+        }),
+        updateDestination: (city, vehicle, index) => ({
+            type: duck.types.UPDATE_DESTINATION,
+            payload: { city, vehicle, index },
+        }),
+    }),
+});
