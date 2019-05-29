@@ -59,13 +59,20 @@ class Meeting extends React.Component{
             bookingState: 'addNew'
         })
     }
+    handleInput = event => {
+        console.log(event.target)
+        const { value,name } = event.target
+        this.setState({
+            [name]:value
+        })
+    }
     checkForRoom = () => {
         
     }
     render(){
         const { bookingState } = this.state
         const { getBuildingData,getState } = this.props
-        console.log(getBuildingData)
+        console.log(this.state)
 
         return(
             <BuildingWrapper>
@@ -75,10 +82,11 @@ class Meeting extends React.Component{
                     <ActionButton onClick={this.handleClick}/>
                 </div>}
                 {bookingState === 'addNew' && <form>Select your preference of Time
-                    <input type="date" />
-                    <input type="date" />
-                    <input type="date" />                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
-                    <ActionButton onClick={this.checkForRoom}/>
+                    <input type="date" name="date" onInput={this.handleInput}/>
+                    <input type="time"  name="start" onChange={this.handleInput}/>
+                    <input type="time" name="end" onChange={this.handleInput}/>
+                    <select name="building" onClick={this.handleInput}>Building Number</select>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+                    <ActionButton onClick={this.checkForRoom}/> 
                 </form>
                 }
                 {bookingState === 'select' && <div>Select your preference of Room
@@ -95,7 +103,6 @@ class Meeting extends React.Component{
 
 
 const mapStateToProps = state => ({
-    getState : state,
     getBuildingData : state.app.buildings
 })
 const mapDispatchToProps = dispatch => ({

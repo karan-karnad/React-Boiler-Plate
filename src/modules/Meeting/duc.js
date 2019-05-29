@@ -1,5 +1,5 @@
 import Duck from 'extensible-duck';
-import { setIn, getIn, merge } from 'timm';
+import { setIn } from 'timm';
 
 export const MeetingDuc = new Duck({
     namespace:'app',

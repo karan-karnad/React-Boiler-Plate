@@ -5,7 +5,7 @@ import Reducer from './store/Reducer';
 import { createRenderer } from 'fela'
 import { Provider as FelaProvider } from 'react-fela';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore } from 'redux';
 
 
 const renderer = createRenderer()
