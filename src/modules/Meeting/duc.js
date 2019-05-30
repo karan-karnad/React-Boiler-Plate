@@ -25,7 +25,7 @@ export const MeetingDuc = new Duck({
                 }
                 case duck.types.CHECK_FOR_ROOMS:{
                     const meetings = getIn(state,['meetings']) || {}
-                    const { date, start, end, building } = action.payload
+                    const { date, start, building } = action.payload
                     let availableMeetingRooms = []
                     availableMeetingRooms = meetings.filter(room => { 
                         let available = true                       
@@ -34,8 +34,6 @@ export const MeetingDuc = new Duck({
                                 const {date:d,startTime,endTime} = meeting
                                 if(date===d &&  start >= startTime && start <= endTime){
                                     available = false 
-                                }else{
-                                    available = true
                                 }
                             })
                         }

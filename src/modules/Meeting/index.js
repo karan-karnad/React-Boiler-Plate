@@ -6,7 +6,7 @@ import { MeetingDuc } from "./duc";
 // import {RoomCard} from '../../components/RoomCard/index'
 // import {InputBox} from '../../components/InputBox/index'
 import { ActionButton } from "../../components/Button/index";
-import { BuildingWrapper } from "./__style";
+import { BuildingWrapper, SectionWrapper, Section } from "./__style";
 
 class Meeting extends React.Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class Meeting extends React.Component {
     //Get all buildings data
     fetch("http://smart-meeting.herokuapp.com/graphql", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json",Token: "a123gjhgjsdf6576" },
       body: JSON.stringify({
         query: `{
                         Buildings {
@@ -45,7 +45,7 @@ class Meeting extends React.Component {
     //Get all meeting rooms
     fetch("http://smart-meeting.herokuapp.com/graphql", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json",Token: "a123gjhgjsdf6576" },
       body: JSON.stringify({
         query: `{ MeetingRooms{ 
                         name floor building{ name } meetings{ 
@@ -76,24 +76,26 @@ class Meeting extends React.Component {
   addRoom = () => {
     const { roomSelected,date,start,end } = this.state;
     let id 
+    debugger
     this.props.getMeetingsData.forEach((ele, index) => {
       if (ele.name === roomSelected) {
          id = index + 1 
       }
     });
-    debugger
+    
 
     fetch("http://smart-meeting.herokuapp.com/graphql", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json",
+      Token: "a123gjhgjsdf6576"
+       },
       body: JSON.stringify({
         query: `mutation { Meeting( 
-            id: ${id} title: "Booked3" date: ${date} startTime: ${start} endTime: ${end} meetingRoomId: 1) { id title } } 
-                        `
+          id: ${id} title: "Booked${id}" date: "${date}" startTime: "${start}" endTime: "${end}" meetingRoomId: ${id}) { id title } }`
       })
     })
       .then(res => res.json())
-      .then(res => res.data && this.setState({roomBooked:true}));
+      .then(res => res.data && this.setState({bookingState:'roomBooked'})); 
   };
   checkForRoom = () => {
     const { date, start, end, building } = this.state;
@@ -102,9 +104,10 @@ class Meeting extends React.Component {
     } else {
       this.props.checkForRoom({ date, start, end, building });
     }
+    this.setState({bookingState:'selectRoom'})
   };
   render() {
-    const { bookingState, building,roomBooked } = this.state;
+    const { bookingState, building } = this.state;
     const { getBuildingData, getMeetingsData, getAvailableRooms } = this.props;
     let buildingNames = getBuildingData.map(ele => ele.name);
     buildingNames.unshift("Select building");
@@ -120,57 +123,61 @@ class Meeting extends React.Component {
     return (
       <BuildingWrapper>
         {bookingState === "show" && (
-          <div>
+          <SectionWrapper>
             Show all buildings
-            <div>
+            <Section>
               Buildings {getBuildingData.length > 0 && getBuildingData.length}
-            </div>
-            <div>
+            </Section>
+            <Section>
               Meeting Rooms{" "}
               {getMeetingsData.length > 0 && getMeetingsData.length}
-            </div>
-            <div>Rooms {rooms > 0 && rooms}</div>
+            </Section>
+            <Section>Rooms {rooms > 0 && rooms}</Section>
             <ActionButton
+              name="Add a Meeting"
               onClick={() => this.setState({ bookingState: "addNew" })}
             />
-          </div>
+          </SectionWrapper>
         )}
-        {getAvailableRooms &&
-          getAvailableRooms.length === 0 &&
-          bookingState === "addNew" && (
-            <form>
+        { bookingState === "addNew" && (
+            <SectionWrapper>
               Select your preference of Time
-              <input type="date" name="date" onInput={this.handleInput} />
-              <input type="time" name="start" onChange={this.handleInput} />
-              <input type="time" name="end" onChange={this.handleInput} />
-              <select name="building" onChange={this.handleInput}>
+            <Section>  <label>Date</label><input type="date" name="date" onInput={this.handleInput} /></Section>
+            <Section><label>Start Time</label><input type="time" name="start" onChange={this.handleInput} /></Section>
+            <Section>  <label>End time</label><input type="time" name="end" onChange={this.handleInput} /></Section>
+            <Section> <label>Building</label><select name="building" onChange={this.handleInput}>
                 {buildingNames &&
                   buildingNames.map(building => (
                     <option value={building}>{building}</option>
                   ))}
-              </select>
-              <ActionButton onClick={this.checkForRoom} />
-            </form>
+              </select></Section>
+              <ActionButton onClick={this.checkForRoom} name="Next"/>
+            </SectionWrapper>
           )}
-        {getAvailableRooms && getAvailableRooms.length > 0 && (
-          <div>
-            Select your preference of Room
+        {bookingState === 'selectRoom' && (
+          <SectionWrapper>
+            {availableRoomsForBuilding.length > 0 ? <div>Select your preference of room</div>: <div>Oooops!</div> }
+
             {availableRoomsForBuilding.length > 0 ? (
               availableRoomsForBuilding.map(room => (
-                <div
+                <Section
                   onClick={() =>
                     this.setState({ roomSelected: room.name })
                   }
+                  active={room.name===this.state.roomSelected && 'lightBlue'}
                 >
                   {room.name}
-                </div>
+                  {room.building.name}
+                  {'Floor' + room.floor}
+                </Section>
               ))
             ) : (
-              <div>No rooms available for meeting</div>
+              <Section>No rooms available for meeting</Section>
             )}
-            <ActionButton onClick={this.addRoom} />
-          </div>
+            <ActionButton onClick={this.addRoom} name="Save" disabled={availableRoomsForBuilding.length === 0}/>
+          </SectionWrapper>
         )}
+        {bookingState === 'roomBooked' && <Section>Room Booked.</Section>}
       </BuildingWrapper>
     );
   }
