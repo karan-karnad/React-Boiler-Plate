@@ -112,7 +112,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     setBuildingData : data => dispatch(MeetingDuc.creators.setBuildingData(data)),
     setAllMeetings: data => dispatch(MeetingDuc.creators.setAllMeetings(data))
-
 })
 
 
