@@ -14,7 +14,9 @@ class Meeting extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            bookingState: 'show'
+            bookingState: 'show',
+            addMeeting:{}
+
         }
     }
     componentDidMount(){
@@ -67,12 +69,13 @@ class Meeting extends React.Component{
         })
     }
     checkForRoom = () => {
-        
+        const { date,start,end,building} = this.state
+        // this.props.checkForRoom({date,start,end,building})
     }
     render(){
         const { bookingState } = this.state
-        const { getBuildingData,getState } = this.props
-        console.log(this.state)
+        const { getBuildingData,getMeetingsData } = this.props
+        console.log(getMeetingsData)
 
         return(
             <BuildingWrapper>
@@ -103,11 +106,13 @@ class Meeting extends React.Component{
 
 
 const mapStateToProps = state => ({
-    getBuildingData : state.app.buildings
+    getBuildingData : state.app.buildings,
+    getMeetingsData: state.app.meetings,
 })
 const mapDispatchToProps = dispatch => ({
     setBuildingData : data => dispatch(MeetingDuc.creators.setBuildingData(data)),
     setAllMeetings: data => dispatch(MeetingDuc.creators.setAllMeetings(data))
+
 })
 
 

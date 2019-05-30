@@ -1,5 +1,5 @@
 import Duck from 'extensible-duck';
-import { setIn } from 'timm';
+import { setIn,getIn } from 'timm';
 
 export const MeetingDuc = new Duck({
     namespace:'app',
@@ -18,12 +18,26 @@ export const MeetingDuc = new Duck({
                     return newState
                 }
                 case duck.types.SET_MEETINGS:{
-                    const info  = action.payload.meetings
+                    const info  = action.payload.MeetingRooms
                     const newState  = setIn(state,['meetings'],info)
                     return newState
                 }
-                case duck.types.ADD_MEETING:{
-                    return state
+                case duck.types.CHECK_FOR_ROOMS:{
+                    const { buildings } = getIn(state,['buildings']) || {}
+                    const { date, start, end, building } = action.payload
+                    let availableMeetingRooms = []
+                    buildings.forEach(build => {                        
+                        if(build.name === building){
+                            const { meetings } =  build.meetingRooms
+                           availableMeetingRooms = meetings.forEach(ele => {
+                                const {date:d,startTime,endTime} = ele
+                                if(date===!d && startTime===!start && endTime===!end){
+                                    return build.meetingRooms.name 
+                                }
+                            })
+                        }
+                    });
+                    return setIn(state,['availableRooms'],availableMeetingRooms)
                 }
                 default:
                     return state
@@ -43,6 +57,10 @@ export const MeetingDuc = new Duck({
         }),
         setAllMeetings: payload => ({
             type: duck.types.SET_MEETINGS,
+            payload
+        }),
+        checkForRooms: payload => ({
+            type:duck.types.CHECK_FOR_ROOMS,
             payload
         })
     })
