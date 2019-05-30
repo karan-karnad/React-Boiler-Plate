@@ -8,8 +8,9 @@ export const MeetingDuc = new Duck({
         'SET_BUILDING_DATA',
         'SET_MEETINGS',
         'ADD_MEETING',
+        'CHECK_FOR_ROOMS',
     ],
-    initialState: { buildings: [], meetings: [] },
+    initialState: { buildings: [], meetings: [],availableRooms:[] },
     reducer: (state,action,duck) => {
             switch(action.type){
                 case duck.types.SET_BUILDING_DATA:{
@@ -23,19 +24,22 @@ export const MeetingDuc = new Duck({
                     return newState
                 }
                 case duck.types.CHECK_FOR_ROOMS:{
-                    const { buildings } = getIn(state,['buildings']) || {}
+                    const meetings = getIn(state,['meetings']) || {}
                     const { date, start, end, building } = action.payload
                     let availableMeetingRooms = []
-                    buildings.forEach(build => {                        
-                        if(build.name === building){
-                            const { meetings } =  build.meetingRooms
-                           availableMeetingRooms = meetings.forEach(ele => {
-                                const {date:d,startTime,endTime} = ele
-                                if(date===!d && startTime===!start && endTime===!end){
-                                    return build.meetingRooms.name 
+                    availableMeetingRooms = meetings.filter(room => { 
+                        let available = true                       
+                        if(room.building.name === building){
+                            room.meetings.forEach(meeting => {
+                                const {date:d,startTime,endTime} = meeting
+                                if(date===d &&  start >= startTime && start <= endTime){
+                                    available = false 
+                                }else{
+                                    available = true
                                 }
                             })
                         }
+                        return available
                     });
                     return setIn(state,['availableRooms'],availableMeetingRooms)
                 }
@@ -59,7 +63,7 @@ export const MeetingDuc = new Duck({
             type: duck.types.SET_MEETINGS,
             payload
         }),
-        checkForRooms: payload => ({
+        checkForRoom: payload => ({
             type:duck.types.CHECK_FOR_ROOMS,
             payload
         })
